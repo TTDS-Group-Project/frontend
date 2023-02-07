@@ -27,7 +27,7 @@ export default function Home() {
                     </div> */}
 
                     <div className="col-span-2">
-                        <FormInput/>
+                        <FormInput placeholder="Perform Search Query"/>
                     </div>
 
                     <div className="col-span-1">
@@ -43,11 +43,11 @@ export default function Home() {
                         <p className="text-2xl text-white mb-5">Filters</p>
 
                         <div className="bg-section-background rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
-                            <FormInput title="Author" />
-                            <FormInput title="Earliest Date" />
-                            <FormInput title="Latest Date" />
-                            <FormInput title="Sentiment" />
-                            <FormInput title="Category" />
+                            <FormInput title="Author" placeholder="Stephanie Miller" />
+                            <FormInput title="Earliest Date" placeholder="DD/MM/AAAA" />
+                            <FormInput title="Latest Date" placeholder="DD/MM/AAAA"/>
+                            <FormInput title="Sentiment" placeholder="Select"/>
+                            <FormInput title="Category" placeholder="Select"/>
 
                             <div className="flex justify-center">
                                 <ActionButton>
@@ -58,7 +58,11 @@ export default function Home() {
                     </div>
 
                     <div className="col-span-2">
-                        <p className="text-2xl text-white mb-5">Search Results</p>
+                        <div className="mb-5">
+                            <p className="text-2xl text-white">Search Results</p>
+                            <p className="test-sm text-grey">200 results (0.03 seconds)</p>
+                        </div>
+                        
                         <div className="grid grid-cols-2 gap-10">
                             <ArticleCard />
                             <ArticleCard />

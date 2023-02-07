@@ -7,7 +7,7 @@ export const ArticleCardBase : React.FC<{
     children: React.ReactNode
 }> = props  =>
     <div className="rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem] cursor-pointer">
-        <div className="rounded-lg bg-section-background px-4 py-6">
+        <div className="rounded-lg bg-section-background px-5 py-6">
             {props.children}
         </div>
     </div>

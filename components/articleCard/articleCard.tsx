@@ -6,8 +6,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
 
 // Components
-import { ArticleCardBase } from '.'
-import { HeaderWithIcon } from '..'
+import { ArticleCardBase, HeaderWithIcon, Tag } from '..'
 
 
 // Content included within the ArtileCardBase which contains all the information about the article
@@ -20,7 +19,7 @@ export const ArticleCard : React.FC<{}> = (props)  => {
             </p>
 
             {/* Headers*/}
-            <div className="grid grid-rows-4 gap-1">
+            <div className="grid grid-rows-2 gap-2">
                 <HeaderWithIcon
                     icon={<PersonIcon style={{color: "grey"}}/>}
                     title="Stephanie Miller (BBC)"
@@ -30,6 +29,12 @@ export const ArticleCard : React.FC<{}> = (props)  => {
                     icon={<AccessTimeIcon style={{color: "grey"}}/>}
                     title="22 January 2022"
                 />
+            </div>
+
+            <div className="flex mt-5">
+                    <Tag value="Sports"/>
+                    <Tag value="Romance"/>
+                    <Tag value="Climate"/>
             </div>
 
 
