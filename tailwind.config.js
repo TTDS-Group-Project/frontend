@@ -14,6 +14,7 @@ module.exports = {
           "section-background": "#151823",
           "gradient-left": "#AF53FF",
           "gradient-right": "#6EACFE",
+          "formInputBorder": "#303241"
       }
     },
     plugins: [],
