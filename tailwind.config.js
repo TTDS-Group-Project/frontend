@@ -13,7 +13,7 @@ module.exports = {
           "background": "#181A25",
           "section-background": "#151823",
           "gradient-left": "#AF53FF",
-          "gradient-right": "#6EACFE"
+          "gradient-right": "#6EACFE",
       }
     },
     plugins: [],
