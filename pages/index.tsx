@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image';
 
 // Components
-import { ArticleCard, ActionButton, FormInput } from "../components";
+import { ArticleCard, ActionButton, FormInput, SelectComponent } from "../components";
 
 export default function Home() {
 
@@ -46,8 +46,10 @@ export default function Home() {
                             <FormInput title="Author" placeholder="Stephanie Miller" />
                             <FormInput title="Earliest Date" placeholder="DD/MM/AAAA" />
                             <FormInput title="Latest Date" placeholder="DD/MM/AAAA"/>
-                            <FormInput title="Sentiment" placeholder="Select"/>
                             <FormInput title="Category" placeholder="Select"/>
+                            <SelectComponent/>
+
+                          
 
                             <div className="flex justify-center">
                                 <ActionButton>
