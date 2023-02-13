@@ -6,7 +6,7 @@ import tailwindConfig from '../tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 // Constants
-import {SENTIMENT_OPTIONS} from "../constants"
+import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS} from "../constants"
 
 // Tailwind Config setup
 const fullConfig = resolveConfig(tailwindConfig)
@@ -58,17 +58,35 @@ const customStyles = {
     singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#fff"}),
 };
 
-export const SelectComponent: React.FC<{}> = () => {
+
+interface SelectProps {
+    title: string;
+}
+
+const getOptions = (title: string) => {
+    switch (title) {
+        case "Sentiment":
+            return SENTIMENT_OPTIONS;
+        case "Category":
+            return CATEGORY_OPTIONS;
+        case "Publisher":
+            return PUBLISHER_OPTIONS;
+    }
+}
+
+export const SelectComponent: React.FC<SelectProps> = ({
+    title
+}) => {
     return (
         <div className="text-sm">
             <p className="text-grey">
-                Sentiment
+                {title}
             </p> 
 
             <div className="text-tag-text-color">
                 <Select 
                     isMulti 
-                    options={SENTIMENT_OPTIONS} 
+                    options={getOptions(title)} 
                     styles={customStyles} 
                     placeholder="Any"
                 />

@@ -46,10 +46,16 @@ export default function Home() {
                             <FormInput title="Author" placeholder="Stephanie Miller" />
                             <FormInput title="Earliest Date" placeholder="DD/MM/AAAA" />
                             <FormInput title="Latest Date" placeholder="DD/MM/AAAA"/>
-                            <FormInput title="Category" placeholder="Select"/>
-                            <SelectComponent/>
 
-                          
+                            <SelectComponent
+                                title="Sentiment"
+                            />
+                            <SelectComponent
+                                title="Category"
+                            />
+                            <SelectComponent
+                                title="Publisher"
+                            />
 
                             <div className="flex justify-center">
                                 <ActionButton>
