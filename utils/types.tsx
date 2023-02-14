@@ -1,14 +1,15 @@
 export type FiltersType = {
-    query: string,
-    author: string,
-    earliest_date: string,
-    latest_date: string,
+    query: string | null,
+    author: string | null,
+    earliest_date: string | null,
+    latest_date: string | null,
     sentiment: string[],
     category: string[],
     publisher: string[]
 }
 
-
-// TODO(MC): Implement Article Type
-// export type ArticleType = {
-// }
+// TODO(MC): Finish implementing 
+export type ArticleType = {
+    id: string | null,
+    title: string
+}

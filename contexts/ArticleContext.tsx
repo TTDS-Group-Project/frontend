@@ -1,17 +1,37 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { FiltersType, ArticleType } from "../utils/types";
+
+const initialFilterState = {
+    query: null,
+    author: null,
+    earliest_date: null,
+    latest_date: null,
+    sentiment: [],
+    category: [],
+    publisher: []
+}
 
 interface IArticlesContext {
     articles: any,
-    filters: any,
-    setArticles: React.Dispatch<React.SetStateAction<never[]>>,
-    setFilters: React.Dispatch<React.SetStateAction<{}>>
+    filters: FiltersType,
+    setArticles: Dispatch<SetStateAction<ArticleType[]>>;
+    setFilters: Dispatch<SetStateAction<FiltersType>>;
 }
 
-export const ArticlesContext = createContext<IArticlesContext>({} as IArticlesContext);
+const defaultState = {
+    articles: [],
+    filters: initialFilterState,
+    setArticles: () => {},
+    setFilters: () => {},
+}
+
+export const ArticlesContext = createContext<IArticlesContext>(defaultState);
 
 export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => {
-    const [articles, setArticles] = useState([]);
-    const [filters, setFilters] = useState({});
+    
+
+    const [articles, setArticles] = useState<ArticleType[]>([]);
+    const [filters, setFilters] = useState<FiltersType>(initialFilterState);
 
     // TODO(MC): Implement code to fetch articles once Backend API is ready
     const fetchArticles = async () => {
