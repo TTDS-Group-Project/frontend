@@ -19,16 +19,16 @@ export default function Home() {
                 </div>
 
 
-                <div className="grid grid-cols-3 mt-20 gap-20">
+                <div className="md:grid md:grid-cols-3 mt-10 md:mt-20 gap-20">
                     <FilterSection />
 
-                    <div className="col-span-2">
+                    <div className="col-span-2 mt-10 md:mt-0">
                         <div className="mb-5">
                             <p className="text-2xl text-white">Search Results</p>
                             <p className="test-sm text-grey">200 results (0.03 seconds)</p>
                         </div>
                         
-                        <div className="grid grid-cols-2 gap-10">
+                        <div className="grid md:grid-cols-2 gap-10">
                             <ArticleCard />
                             <ArticleCard />
                         </div>
