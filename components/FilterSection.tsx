@@ -7,17 +7,18 @@ import { FiltersType } from "../utils/types";
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
 export const FilterSection : React.FC<{}> = props  => {
     const { filters, setFilters } = useContext(ArticlesContext)
-
-    console.log(filters.author, "🔥")
-
-    // const { tempFilters, setTempFilters} = useState(filters);
+    const [tempFilters, setTempFilters] = useState<FiltersType>(filters);
 
     const handleFormInputChange = (field: keyof FiltersType, value: string | null) => {
-        setFilters((prevFilters) => ({
+        setTempFilters((prevFilters: FiltersType) => ({
           ...prevFilters,
           [field]: value,
         }));
       };
+
+    const handleSubmit = () => {
+        setFilters(tempFilters);
+    }
 
     return (
         <div>
@@ -26,20 +27,31 @@ export const FilterSection : React.FC<{}> = props  => {
             <div className="bg-section-background rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
                 <FormInput 
                     handleChange={(e) => handleFormInputChange("author", e.target.value)} 
-                    value={filters.author} 
+                    value={tempFilters.author} 
                     title="Author" 
                     placeholder="Stephanie Miller" 
                 />
 
-                {/* <FormInput value={filters.earliest_date} title="Earliest Date" placeholder="DD/MM/AAAA" />
-                <FormInput value={filters.latest_date} title="Latest Date" placeholder="DD/MM/AAAA"/> */}
+                <FormInput 
+                    handleChange={(e) => handleFormInputChange("earliest_date", e.target.value)} 
+                    value={tempFilters.earliest_date} 
+                    title="Earliest Date" 
+                    placeholder="DD/MM/AAAA"
+                />
+
+                <FormInput 
+                    handleChange={(e) => handleFormInputChange("latest_date", e.target.value)} 
+                    value={tempFilters.latest_date} 
+                    title="Latest Date" 
+                    placeholder="DD/MM/AAAA"
+                />
 
                 <SelectComponent title="Sentiment" />
                 <SelectComponent title="Category" />
                 <SelectComponent title="Publisher" />
 
                 <div className="flex justify-center">
-                    <ActionButton>
+                    <ActionButton onClick={() => handleSubmit()}>
                         Apply filters
                     </ActionButton>
                 </div>
