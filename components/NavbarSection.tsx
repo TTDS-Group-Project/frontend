@@ -31,7 +31,7 @@ export const NavbarSection : React.FC<{}> = props  => {
                         />
                     </div> */}
 
-            <div className="col-span-2">
+            <div className="md:col-span-2">
                 <FormInput 
                     handleChange={(e) => handleFormInputChange("query", e.target.value)} 
                     value={tempFilters.query} 
@@ -39,7 +39,7 @@ export const NavbarSection : React.FC<{}> = props  => {
                 />
             </div>
 
-            <div className="col-span-1">
+            <div className="md:col-span-1">
                 <ActionButton onClick={handleSubmit}>
                     Search
                 </ActionButton>
