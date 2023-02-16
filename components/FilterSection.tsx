@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 
 import { ActionButton, FormInput, SelectComponent } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
-import { FiltersType } from "../utils/types";
+import { FiltersType, MultiValueType } from "../utils/types";
 
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
 export const FilterSection : React.FC<{}> = props  => {
@@ -15,6 +15,14 @@ export const FilterSection : React.FC<{}> = props  => {
           [field]: value,
         }));
       };
+
+    const handleSelectChange = (field: keyof FiltersType, selectedOption: MultiValueType[]) => {
+        console.log(selectedOption);
+        setTempFilters((prevFilters: FiltersType) => ({
+            ...prevFilters,
+            [field]: selectedOption.map((option: MultiValueType) => option.value),
+          }));
+    };
 
     const handleSubmit = () => {
         setFilters(tempFilters);
@@ -46,9 +54,9 @@ export const FilterSection : React.FC<{}> = props  => {
                     placeholder="DD/MM/AAAA"
                 />
 
-                <SelectComponent title="Sentiment" />
-                <SelectComponent title="Category" />
-                <SelectComponent title="Publisher" />
+                <SelectComponent title="Sentiment" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("sentiment", selectedOption)}/>
+                <SelectComponent title="Category" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("category", selectedOption)} />
+                <SelectComponent title="Publisher" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("publisher", selectedOption)} />
 
                 <div className="flex justify-center">
                     <ActionButton onClick={() => handleSubmit()}>

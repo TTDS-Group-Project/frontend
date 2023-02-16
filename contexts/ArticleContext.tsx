@@ -38,7 +38,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
 
     // TODO(MC): Implement code to fetch articles once Backend API is ready
     const fetchArticles = async () => {
-        console.log(filters, "👹")
+        console.log(filters)
         console.log("fetching articles", "🟢")
         return 0;
     //     const { data } = await axios.get(`/api/articles`, {

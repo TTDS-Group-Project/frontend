@@ -1,3 +1,4 @@
+// General
 import React from 'react';
 import Select from 'react-select';
 
@@ -7,6 +8,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 
 // Constants
 import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS} from "../constants"
+import { JavascriptRounded } from '@mui/icons-material';
 
 // Tailwind Config setup
 const fullConfig = resolveConfig(tailwindConfig)
@@ -61,6 +63,7 @@ const customStyles = {
 
 interface SelectProps {
     title: string;
+    handleChange: any;
 }
 
 const getOptions = (title: string) => {
@@ -75,8 +78,10 @@ const getOptions = (title: string) => {
 }
 
 export const SelectComponent: React.FC<SelectProps> = ({
-    title
+    title,
+    handleChange
 }) => {
+
     return (
         <div className="text-sm">
             <p className="text-grey">
@@ -85,7 +90,8 @@ export const SelectComponent: React.FC<SelectProps> = ({
 
             <div className="text-tag-text-color">
                 <Select 
-                    isMulti 
+                    isMulti
+                    onChange={handleChange}
                     options={getOptions(title)} 
                     styles={customStyles} 
                     placeholder="Any"

@@ -13,3 +13,9 @@ export type ArticleType = {
     id: string | null,
     title: string
 }
+
+// Used in the filters when using the multi select options from "react-select"
+export interface MultiValueType {
+    value: string;
+    label: string;
+}
