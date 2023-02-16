@@ -31,7 +31,7 @@ export const ArticleCard : React.FC<{}> = (props)  => {
                 />
             </div>
 
-            <div className="flex mt-5">
+            <div className="flex flex-wrap mt-2">
                     <Tag value="Sports"/>
                     <Tag value="Romance"/>
                     <Tag value="Climate"/>

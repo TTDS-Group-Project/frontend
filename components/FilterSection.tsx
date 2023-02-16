@@ -57,7 +57,7 @@ export const FilterSection : React.FC<{}> = props  => {
                 <SelectComponent title="Category" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("category", selectedOption)} />
                 <SelectComponent title="Publisher" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("publisher", selectedOption)} />
 
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-2">
                     <ActionButton onClick={() => handleSubmit()}>
                         Apply filters
                     </ActionButton>
