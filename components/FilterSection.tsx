@@ -17,7 +17,6 @@ export const FilterSection : React.FC<{}> = props  => {
       };
 
     const handleSelectChange = (field: keyof FiltersType, selectedOption: MultiValueType[]) => {
-        console.log(selectedOption);
         setTempFilters((prevFilters: FiltersType) => ({
             ...prevFilters,
             [field]: selectedOption.map((option: MultiValueType) => option.value),
