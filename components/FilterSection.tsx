@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 
 import { ActionButton, FormInput, SelectComponent } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
@@ -7,7 +7,7 @@ import { FiltersType } from "../utils/types";
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
 export const FilterSection : React.FC<{}> = props  => {
     const { filters, setFilters } = useContext(ArticlesContext)
-    const [tempFilters, setTempFilters] = useState<FiltersType>(filters);
+    const { tempFilters, setTempFilters } = useContext(ArticlesContext)
 
     const handleFormInputChange = (field: keyof FiltersType, value: string | null) => {
         setTempFilters((prevFilters: FiltersType) => ({

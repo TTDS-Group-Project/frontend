@@ -14,24 +14,27 @@ const initialFilterState = {
 interface IArticlesContext {
     articles: any,
     filters: FiltersType,
+    tempFilters: FiltersType,
     setArticles: Dispatch<SetStateAction<ArticleType[]>>;
     setFilters: Dispatch<SetStateAction<FiltersType>>;
+    setTempFilters: Dispatch<SetStateAction<FiltersType>>;
 }
 
 const defaultState = {
     articles: [],
     filters: initialFilterState,
+    tempFilters: initialFilterState,
     setArticles: () => {},
     setFilters: () => {},
+    setTempFilters: () => {},
 }
 
 export const ArticlesContext = createContext<IArticlesContext>(defaultState);
 
 export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => {
-    
-
     const [articles, setArticles] = useState<ArticleType[]>([]);
     const [filters, setFilters] = useState<FiltersType>(initialFilterState);
+    const [tempFilters, setTempFilters] = useState<FiltersType>(initialFilterState);
 
     // TODO(MC): Implement code to fetch articles once Backend API is ready
     const fetchArticles = async () => {
@@ -54,7 +57,9 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             articles,
             setArticles,
             filters,
-            setFilters
+            setFilters,
+            tempFilters,
+            setTempFilters
           }}
         >
           {props.children}

@@ -1,9 +1,8 @@
 // General
 import Head from 'next/head'
-import Image from 'next/image';
 
 // Components
-import { ArticleCard, ActionButton, FormInput, FilterSection } from "../components";
+import { ArticleCard, FilterSection, NavbarSection } from "../components";
 
 export default function Home() {
 
@@ -15,26 +14,8 @@ export default function Home() {
             </Head>
         
             <div className="bg-background min-h-screen rounded-lg p-7 pr-20">
-                {/* Navbar */}
                 <div className="w-[50%] grid grid-cols-4 gap-5">
-                    {/* <div className="col-span-1">
-                        <Image
-                            src="/ttds-logo.svg"
-                            width={35}
-                            height={70}
-                            alt="test" 
-                        />
-                    </div> */}
-
-                    <div className="col-span-2">
-                        <FormInput placeholder="Perform Search Query"/>
-                    </div>
-
-                    <div className="col-span-1">
-                        <ActionButton>
-                            Search
-                        </ActionButton>
-                    </div>
+                    <NavbarSection />
                 </div>
 
 
