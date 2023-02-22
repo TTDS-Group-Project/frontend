@@ -8,10 +8,17 @@ export type FiltersType = {
     publisher: string[]
 }
 
-// TODO(MC): Finish implementing 
 export type ArticleType = {
-    id: string | null,
-    title: string
+    id: string,
+    authors: string[],
+    body: string,
+    cover_image: string,
+    sentiment: string[],
+    categories: string[]
+    date: string,
+    link: string,
+    publisher: string,
+    title: string,
 }
 
 // Used in the filters when using the multi select options from "react-select"

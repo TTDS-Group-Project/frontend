@@ -2,7 +2,8 @@ import React, { createContext, useState, useEffect, Dispatch, SetStateAction } f
 import { FiltersType, ArticleType } from "../utils/types";
 
 const initialFilterState = {
-    query: null,
+    query: "",
+    // query: null,
     author: null,
     earliest_date: null,
     latest_date: null,
@@ -36,15 +37,35 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [filters, setFilters] = useState<FiltersType>(initialFilterState);
     const [tempFilters, setTempFilters] = useState<FiltersType>(initialFilterState);
 
-    // TODO(MC): Implement code to fetch articles once Backend API is ready
     const fetchArticles = async () => {
-        console.log(filters)
-        console.log("fetching articles", "🟢")
-        return 0;
-    //     const { data } = await axios.get(`/api/articles`, {
-    //     params: filters
-    //     });
-    //     setArticles(data);
+        console.log(filters, "🟢")
+        try {
+            const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    query: filters.query,
+                    author: [filters.author],
+                    datefrom: filters.earliest_date,
+                    dateto: filters.latest_date,
+                    category: filters.category,
+                    sentiment: filters.sentiment,
+                    publishers: filters.publisher,
+                    limit: 1000
+                })
+            });
+        
+            // TODO(MC): Also extract the num_results and time taken
+            const data = await response.json();
+
+            const retrievedArticles: ArticleType[] = data.results;
+            setArticles(retrievedArticles)
+
+          } catch (error) {
+            console.error(error);
+          }
     };
 
     useEffect(() => {

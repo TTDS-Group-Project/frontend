@@ -1,10 +1,18 @@
 // General
+import React, {useContext} from 'react';
 import Head from 'next/head'
+
+// Contexts
+import { ArticlesContext } from "../contexts/ArticleContext";
 
 // Components
 import { ArticleCard, FilterSection, NavbarSection } from "../components";
 
+// Types
+import {ArticleType} from "../utils/types"
+
 export default function Home() {
+    const { articles } = useContext(ArticlesContext)
 
     return (
         <>
@@ -29,8 +37,11 @@ export default function Home() {
                         </div>
                         
                         <div className="grid md:grid-cols-2 gap-10">
-                            <ArticleCard />
-                            <ArticleCard />
+                        {articles.map((article: ArticleType) => (
+                            <div key={article.id} className="col-span-1">
+                                <ArticleCard article={article} />
+                            </div>
+                        ))}
                         </div>
                     </div>
                 </div>
