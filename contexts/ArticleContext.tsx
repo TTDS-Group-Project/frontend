@@ -45,7 +45,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [numResults, setNumResults] = useState(null);
 
     const fetchArticles = async () => {
-        console.log(filters, "🟢")
         try {
             const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
                 method: 'POST',
@@ -64,7 +63,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 })
             });
         
-            // TODO(MC): Also extract the num_results and time taken
             const data = await response.json();
 
             setTimeTaken(data.time_taken)
