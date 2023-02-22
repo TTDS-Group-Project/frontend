@@ -19,6 +19,9 @@ interface IArticlesContext {
     setArticles: Dispatch<SetStateAction<ArticleType[]>>;
     setFilters: Dispatch<SetStateAction<FiltersType>>;
     setTempFilters: Dispatch<SetStateAction<FiltersType>>;
+    timeTaken: number | null,
+    numResults: number | null,
+
 }
 
 const defaultState = {
@@ -28,6 +31,8 @@ const defaultState = {
     setArticles: () => {},
     setFilters: () => {},
     setTempFilters: () => {},
+    timeTaken: null,
+    numResults: null
 }
 
 export const ArticlesContext = createContext<IArticlesContext>(defaultState);
@@ -36,6 +41,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [articles, setArticles] = useState<ArticleType[]>([]);
     const [filters, setFilters] = useState<FiltersType>(initialFilterState);
     const [tempFilters, setTempFilters] = useState<FiltersType>(initialFilterState);
+    const [timeTaken, setTimeTaken] = useState(null);
+    const [numResults, setNumResults] = useState(null);
 
     const fetchArticles = async () => {
         console.log(filters, "🟢")
@@ -60,6 +67,9 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             // TODO(MC): Also extract the num_results and time taken
             const data = await response.json();
 
+            setTimeTaken(data.time_taken)
+            setNumResults(data.num_results)
+
             const retrievedArticles: ArticleType[] = data.results;
             setArticles(retrievedArticles)
 
@@ -80,7 +90,9 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             filters,
             setFilters,
             tempFilters,
-            setTempFilters
+            setTempFilters,
+            timeTaken,
+            numResults
           }}
         >
           {props.children}

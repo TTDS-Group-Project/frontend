@@ -12,7 +12,7 @@ import { ArticleCard, FilterSection, NavbarSection } from "../components";
 import {ArticleType} from "../utils/types"
 
 export default function Home() {
-    const { articles } = useContext(ArticlesContext)
+    const { articles, timeTaken, numResults } = useContext(ArticlesContext)
 
     return (
         <>
@@ -33,7 +33,10 @@ export default function Home() {
                     <div className="col-span-2 mt-10 md:mt-0">
                         <div className="mb-5">
                             <p className="text-2xl text-white">Search Results</p>
-                            <p className="test-sm text-grey">200 results (0.03 seconds)</p>
+                            {/* Only show the time taken and number of results if a query has been actually made */}
+                            {((timeTaken !== null) && (numResults !== null)) && 
+                            <p className="test-sm text-grey">{numResults} results ({timeTaken} seconds)</p>
+                            }
                         </div>
                         
                         <div className="grid md:grid-cols-2 gap-10">
