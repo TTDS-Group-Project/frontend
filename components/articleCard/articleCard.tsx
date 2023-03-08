@@ -1,5 +1,7 @@
 // General
 import React from 'react'
+import Image from 'next/image';
+
 
 // Assets from Material-UI
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -10,7 +12,6 @@ import { ArticleCardBase, HeaderWithIcon, Tag } from '..'
 
 // Types
 import {ArticleType} from "../../utils/types"
-import { ArticlesContext } from '@/contexts';
 
 interface ArticleCardProps {
     article: ArticleType
@@ -23,34 +24,51 @@ const formatDate = (dateString: string) => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  
+
 // Content included within the ArtileCardBase which contains all the information about the article
 export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
+
     return (
         <ArticleCardBase>
-            {/* Title*/}
-            <p className="text-white text-lg mb-3">
-                {article.Title}
-            </p>
+            <div className="md:flex md:flex-row">
+                <div className="hidden md:block">
+                    <Image
+                    src={article.Cover_image}
+                    alt="My Image"
+                    width={225}
+                    height={225}
+                    className="rounded-md h-auto"
+                    />
+                </div>
 
-            {/* Headers*/}
-            <div className="grid grid-rows-2 gap-2">
-                <HeaderWithIcon
-                    icon={<PersonIcon style={{color: "grey"}}/>}
-                    title={`${article.Author} (${article.Publisher})`}
-                />
+                <div className="md:ml-5">
+                    {/* Title*/}
+                    <p className="text-white text-lg mb-3">
+                        {article.Title}
+                    </p>
 
-                <HeaderWithIcon
-                    icon={<AccessTimeIcon style={{color: "grey"}}/>}
-                    title={formatDate(article.Date)}
-                />
+
+                    {/* Headers*/}
+                    <div className="grid grid-rows-2 gap-2">
+                        <HeaderWithIcon
+                            icon={<PersonIcon style={{color: "grey"}}/>}
+                            title={`${article.Author} (${article.Publisher})`}
+                        />
+
+                        <HeaderWithIcon
+                            icon={<AccessTimeIcon style={{color: "grey"}}/>}
+                            title={formatDate(article.Date)}
+                        />
+                    </div>
+
+                    {/* TODO(MC): Wait for Adeel to add the categories so I can show the real data here */}
+                    <div className="flex flex-wrap mt-2">
+                        <Tag value={article.Category}/>
+                    </div>
+
+                </div>
+
             </div>
-
-            {/* TODO(MC): Wait for Adeel to add the categories so I can show the real data here */}
-            <div className="flex flex-wrap mt-2">
-                <Tag value={article.Category}/>
-            </div>
-
 
             {/* Body */}
             <div className="mt-5">
@@ -58,6 +76,10 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                     {article.Body}
                 </p>
             </div>
+
+
+
+            
         </ArticleCardBase>
     )
 }
