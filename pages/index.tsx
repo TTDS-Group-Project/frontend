@@ -39,9 +39,10 @@ export default function Home() {
                             }
                         </div>
                         
-                        <div className="grid md:grid-cols-2 gap-10">
+                        <div className="grid md:grid-cols-1 gap-10">
+                        {/* <div className="grid md:grid-cols-2 gap-10"> */}
                         {articles.map((article: ArticleType) => (
-                            <div key={article.id} className="col-span-1">
+                            <div key={article.Id} className="col-span-1">
                                 <ArticleCard article={article} />
                             </div>
                         ))}

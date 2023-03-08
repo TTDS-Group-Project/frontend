@@ -7,9 +7,9 @@ const initialFilterState = {
     author: null,
     earliest_date: null,
     latest_date: null,
-    sentiment: [],
-    category: [],
-    publisher: []
+    sentiments: [],
+    categories: [],
+    publishers: []
 }
 
 interface IArticlesContext {
@@ -45,35 +45,46 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [numResults, setNumResults] = useState(null);
 
     const fetchArticles = async () => {
-        try {
-            const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    query: filters.query,
-                    author: [filters.author],
-                    datefrom: filters.earliest_date,
-                    dateto: filters.latest_date,
-                    category: filters.category,
-                    sentiment: filters.sentiment,
-                    publishers: filters.publisher,
-                    limit: 1000
-                })
-            });
-        
-            const data = await response.json();
 
-            setTimeTaken(data.time_taken)
-            setNumResults(data.num_results)
+        // Avoid firing the function on page load: only fires when filters actually have changed
+        if (filters != initialFilterState) {
+            console.log(filters.earliest_date)
+            try {
+                const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
 
-            const retrievedArticles: ArticleType[] = data.results;
-            setArticles(retrievedArticles)
+                    body: JSON.stringify({
+                        query: filters.query,
+                        author: filters.author,
+                        datefrom: filters.earliest_date,
+                        dateto: filters.latest_date,
+                        sentiments: filters.sentiments,
+                        categories: filters.categories,
+                        publishers: filters.publishers,
+                        ranking: "TDIDF",
+                        expansion: true, 
+                        limit: 100
+                    })
+                });
+            
+                const data = await response.json();
 
-          } catch (error) {
-            console.error(error);
-          }
+                console.log(data, "🟢")
+
+                setTimeTaken(data.time_taken)
+                setNumResults(data.num_results)
+
+                const retrievedArticles: ArticleType[] = data.results;
+                console.log(retrievedArticles, "🇫🇷")
+                setArticles(retrievedArticles)
+
+            } catch (error) {
+                console.error(error);
+            }
+        } 
     };
 
     useEffect(() => {

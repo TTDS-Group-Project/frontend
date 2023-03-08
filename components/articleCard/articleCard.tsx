@@ -10,6 +10,7 @@ import { ArticleCardBase, HeaderWithIcon, Tag } from '..'
 
 // Types
 import {ArticleType} from "../../utils/types"
+import { ArticlesContext } from '@/contexts';
 
 interface ArticleCardProps {
     article: ArticleType
@@ -18,48 +19,43 @@ interface ArticleCardProps {
 // Convert date format from e.g. "2023-02-22" to "22 February 2023"
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
-    const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(date);
-    const year = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(date);
-  
-    return `${day} ${month} ${year}`;
-};
+    const options = { day: "numeric", month: "long", year: "numeric" } as const;
+    return date.toLocaleDateString("en-US", options);
+  };
 
+  
 // Content included within the ArtileCardBase which contains all the information about the article
 export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
-
     return (
         <ArticleCardBase>
             {/* Title*/}
             <p className="text-white text-lg mb-3">
-                {article.title}
+                {article.Title}
             </p>
 
             {/* Headers*/}
             <div className="grid grid-rows-2 gap-2">
                 <HeaderWithIcon
                     icon={<PersonIcon style={{color: "grey"}}/>}
-                    title={`${article.authors[0]} (${article.publisher})`}
+                    title={`${article.Author} (${article.Publisher})`}
                 />
 
                 <HeaderWithIcon
                     icon={<AccessTimeIcon style={{color: "grey"}}/>}
-                    title={formatDate(article.date)}
+                    title={formatDate(article.Date)}
                 />
             </div>
 
             {/* TODO(MC): Wait for Adeel to add the categories so I can show the real data here */}
             <div className="flex flex-wrap mt-2">
-                    <Tag value="Sports"/>
-                    <Tag value="Romance"/>
-                    <Tag value="Climate"/>
+                <Tag value={article.Category}/>
             </div>
 
 
             {/* Body */}
             <div className="mt-5">
                 <p className="text-white text-sm">
-                    {article.body}
+                    {article.Body}
                 </p>
             </div>
         </ArticleCardBase>

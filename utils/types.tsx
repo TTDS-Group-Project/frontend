@@ -3,22 +3,23 @@ export type FiltersType = {
     author: string | null,
     earliest_date: string | null,
     latest_date: string | null,
-    sentiment: string[],
-    category: string[],
-    publisher: string[]
+    sentiments: string[],
+    categories: string[],
+    publishers: string[]
 }
 
+// TODO(MC): Wait for Adeel to change to lowercase
 export type ArticleType = {
-    id: string,
-    authors: string[],
-    body: string,
-    cover_image: string,
-    sentiment: string[],
-    categories: string[]
-    date: string,
-    link: string,
-    publisher: string,
-    title: string,
+    Id: string,
+    Author: string,
+    Cover_image: string,
+    Sentiment: string,
+    Category: string
+    Date: string,
+    Link: string,
+    Publisher: string,
+    Title: string,
+    Body: string
 }
 
 // Used in the filters when using the multi select options from "react-select"
