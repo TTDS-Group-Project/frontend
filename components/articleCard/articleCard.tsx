@@ -29,7 +29,7 @@ const formatDate = (dateString: string) => {
 export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
 
     return (
-        <ArticleCardBase>
+        <ArticleCardBase articleLink={article.Link}>
             <div className="md:flex md:flex-row">
                 <div className="hidden md:block">
                     <Image
