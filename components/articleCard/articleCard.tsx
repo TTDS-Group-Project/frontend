@@ -10,6 +10,10 @@ import PersonIcon from '@mui/icons-material/Person';
 // Components
 import { ArticleCardBase, HeaderWithIcon, Tag } from '..'
 
+// Constants
+import {SENTIMENT_OPTIONS } from "../../constants"
+
+
 // Types
 import {ArticleType} from "../../utils/types"
 
@@ -26,6 +30,16 @@ const formatDate = (dateString: string) => {
 
 const convertFirstLetterToUppercase = (value: string) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+const getSentimentLabel = (sentiment: string) => {
+    const sentimentOption = SENTIMENT_OPTIONS.find(option => option.value === sentiment);
+
+    if (sentimentOption) {
+        return sentimentOption.label; 
+    } else {
+        return ""
+    }
 }
 
 
@@ -67,6 +81,7 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
 
                     <div className="flex flex-wrap mt-2">
                         <Tag value={convertFirstLetterToUppercase(article.Category)}/>
+                        <Tag value={convertFirstLetterToUppercase(getSentimentLabel(article.Sentiment))}/>
                     </div>
 
                 </div>
