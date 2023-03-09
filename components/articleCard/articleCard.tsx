@@ -61,7 +61,6 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                         />
                     </div>
 
-                    {/* TODO(MC): Wait for Adeel to add the categories so I can show the real data here */}
                     <div className="flex flex-wrap mt-2">
                         <Tag value={article.Category}/>
                     </div>
@@ -77,9 +76,6 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                 </p>
             </div>
 
-
-
-            
         </ArticleCardBase>
     )
 }

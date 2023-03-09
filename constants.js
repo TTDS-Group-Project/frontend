@@ -1,14 +1,15 @@
 export const SENTIMENT_OPTIONS = [
-    { value: 'positive', label: 'Positive' },
-    { value: 'negative', label: 'Negative' },
-    { value: 'neutral', label: 'Neutral' }
+    { value: 'pos', label: 'Positive' },
+    { value: 'neg', label: 'Negative' },
+    { value: 'neu', label: 'Neutral' }
 ]
 
 export const CATEGORY_OPTIONS = [
-    { value: 'sport', label: 'Sport' },
+    { value: 'tech', label: 'Tech' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'business', label: 'Business' },
     { value: 'politics', label: 'Politics' },
-    { value: 'psychology', label: 'Psychology' },
-    { value: 'climate', label: 'Climate' }
+    { value: 'sport', label: 'Sport' }
 ]
 
 export const PUBLISHER_OPTIONS = [
