@@ -17,3 +17,8 @@ export const PUBLISHER_OPTIONS = [
     { value: 'daily_mail', label: 'The Daily Mail' },
     { value: 'guardian', label: 'Guardian' }
 ]
+
+export const RANKING_OPTIONS = [
+    { value: 'tfidf', label: 'TFIDF' },
+    { value: 'bm25', label: 'BM25' }
+]

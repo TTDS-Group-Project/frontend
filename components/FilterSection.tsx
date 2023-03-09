@@ -1,8 +1,10 @@
 import React, {useContext} from 'react';
 
-import { ActionButton, FormInput, SelectComponent, Checkbox } from ".";
+import { ActionButton, FormInput, MultiSelectComponent, SingleSelectComponent, Checkbox } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
-import { FiltersType, MultiValueType } from "../utils/types";
+import { FiltersType, OptionType } from "../utils/types";
+import {RANKING_OPTIONS } from "../constants"
+
 
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
 export const FilterSection : React.FC<{}> = props  => {
@@ -16,10 +18,17 @@ export const FilterSection : React.FC<{}> = props  => {
         }));
       };
 
-    const handleSelectChange = (field: keyof FiltersType, selectedOption: MultiValueType[]) => {
+    const handleMultiSelectChange = (field: keyof FiltersType, selectedOption: OptionType[]) => {
         setTempFilters((prevFilters: FiltersType) => ({
             ...prevFilters,
-            [field]: selectedOption.map((option: MultiValueType) => option.value),
+            [field]: selectedOption.map((option: OptionType) => option.value),
+          }));
+    };
+
+    const handleSelectChange = (field: keyof FiltersType, selectedOption: OptionType) => {
+        setTempFilters((prevFilters: FiltersType) => ({
+            ...prevFilters,
+            [field]: selectedOption.value,
           }));
     };
 
@@ -60,10 +69,12 @@ export const FilterSection : React.FC<{}> = props  => {
                     placeholder="DD/MM/AAAA"
                 />
 
-                <SelectComponent title="Sentiment" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("sentiments", selectedOption)}/>
-                <SelectComponent title="Category" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("categories", selectedOption)} />
-                <SelectComponent title="Publisher" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("publishers", selectedOption)} />
-                
+                <MultiSelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} />
+                <MultiSelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} />
+                <MultiSelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} />
+
+                <SingleSelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} />
+
                 <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 
                 <div className="flex justify-center mt-2">

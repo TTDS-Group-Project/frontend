@@ -6,7 +6,8 @@ export type FiltersType = {
     sentiments: string[],
     categories: string[],
     publishers: string[],
-    expansion: boolean
+    expansion: boolean,
+    ranking: string
 }
 
 // TODO(MC): Wait for Adeel to change to lowercase
@@ -23,8 +24,8 @@ export type ArticleType = {
     Body: string
 }
 
-// Used in the filters when using the multi select options from "react-select"
-export interface MultiValueType {
+// Used in the filters when using the multi select or select options from "react-select"
+export type OptionType = {
     value: string;
     label: string;
 }

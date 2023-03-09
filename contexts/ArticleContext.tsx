@@ -10,7 +10,8 @@ const initialFilterState = {
     sentiments: [],
     categories: [],
     publishers: [],
-    expansion: true
+    expansion: true,
+    ranking: "tfidf"
 }
 
 interface IArticlesContext {
@@ -65,8 +66,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                         sentiments: filters.sentiments,
                         categories: filters.categories,
                         publishers: filters.publishers,
-                        ranking: "TDIDF",
-                        expansion: true, 
+                        ranking: filters.ranking,
+                        expansion: filters.expansion, 
                         limit: 100
                     })
                 });

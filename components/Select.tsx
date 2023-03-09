@@ -2,13 +2,16 @@
 import React from 'react';
 import Select from 'react-select';
 
+
 // Tailwind imports (to reference colors variables defined in the tailwind config file)
 import tailwindConfig from '../tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 // Constants
-import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS} from "../constants"
-import { JavascriptRounded } from '@mui/icons-material';
+import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS, RANKING_OPTIONS } from "../constants"
+
+// Types
+import { OptionType } from "../utils/types";
 
 // Tailwind Config setup
 const fullConfig = resolveConfig(tailwindConfig)
@@ -60,12 +63,6 @@ const customStyles = {
     singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#fff"}),
 };
 
-
-interface SelectProps {
-    title: string;
-    handleChange: any;
-}
-
 const getOptions = (title: string) => {
     switch (title) {
         case "Sentiment":
@@ -74,12 +71,19 @@ const getOptions = (title: string) => {
             return CATEGORY_OPTIONS;
         case "Publisher":
             return PUBLISHER_OPTIONS;
+        case "Ranking": 
+            return RANKING_OPTIONS;
     }
 }
 
-export const SelectComponent: React.FC<SelectProps> = ({
+interface MultiSelectProps {
+    title: string;
+    handleChange: any;
+}
+
+export const MultiSelectComponent: React.FC<MultiSelectProps> = ({
     title,
-    handleChange
+    handleChange,
 }) => {
 
     return (
@@ -95,6 +99,36 @@ export const SelectComponent: React.FC<SelectProps> = ({
                     options={getOptions(title)} 
                     styles={customStyles} 
                     placeholder="Any"
+                />
+            </div>
+        </div>
+    )
+}
+
+interface SingleSelectProps {
+    title: string;
+    handleChange: any;
+    defaultValue: OptionType;
+}
+
+export const SingleSelectComponent: React.FC<SingleSelectProps> = ({
+    title,
+    handleChange,
+    defaultValue
+}) => {
+
+    return (
+        <div className="text-sm">
+            <p className="text-grey">
+                {title}
+            </p> 
+
+            <div className="text-tag-text-color">
+                <Select 
+                    onChange={handleChange}
+                    options={getOptions(title)} 
+                    styles={customStyles}
+                    defaultValue={defaultValue}
                 />
             </div>
         </div>
