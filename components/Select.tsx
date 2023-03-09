@@ -2,7 +2,6 @@
 import React from 'react';
 import Select from 'react-select';
 
-
 // Tailwind imports (to reference colors variables defined in the tailwind config file)
 import tailwindConfig from '../tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig'
@@ -76,14 +75,21 @@ const getOptions = (title: string) => {
     }
 }
 
-interface MultiSelectProps {
+
+interface SelectProps {
     title: string;
     handleChange: any;
+    defaultValue?: OptionType;
+    isMulti: boolean;
 }
 
-export const MultiSelectComponent: React.FC<MultiSelectProps> = ({
+
+export const SelectComponent: React.FC<SelectProps> = ({
     title,
     handleChange,
+    defaultValue,
+    isMulti,
+    ...props
 }) => {
 
     return (
@@ -94,40 +100,11 @@ export const MultiSelectComponent: React.FC<MultiSelectProps> = ({
 
             <div className="text-tag-text-color">
                 <Select 
-                    isMulti
+                    isMulti={isMulti}
                     onChange={handleChange}
                     options={getOptions(title)} 
                     styles={customStyles} 
                     placeholder="Any"
-                />
-            </div>
-        </div>
-    )
-}
-
-interface SingleSelectProps {
-    title: string;
-    handleChange: any;
-    defaultValue: OptionType;
-}
-
-export const SingleSelectComponent: React.FC<SingleSelectProps> = ({
-    title,
-    handleChange,
-    defaultValue
-}) => {
-
-    return (
-        <div className="text-sm">
-            <p className="text-grey">
-                {title}
-            </p> 
-
-            <div className="text-tag-text-color">
-                <Select 
-                    onChange={handleChange}
-                    options={getOptions(title)} 
-                    styles={customStyles}
                     defaultValue={defaultValue}
                 />
             </div>

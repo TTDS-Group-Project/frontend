@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import { ActionButton, FormInput, MultiSelectComponent, SingleSelectComponent, Checkbox } from ".";
+import { ActionButton, FormInput, SelectComponent, Checkbox } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
 import { FiltersType, OptionType } from "../utils/types";
 import {RANKING_OPTIONS } from "../constants"
@@ -69,11 +69,11 @@ export const FilterSection : React.FC<{}> = props  => {
                     placeholder="DD/MM/AAAA"
                 />
 
-                <MultiSelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} />
-                <MultiSelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} />
-                <MultiSelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} />
+                <SelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} isMulti={true} />
+                <SelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} isMulti={true} />
+                <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
 
-                <SingleSelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} />
+                <SelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
 
                 <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 
