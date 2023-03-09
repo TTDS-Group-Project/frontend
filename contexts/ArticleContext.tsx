@@ -9,7 +9,8 @@ const initialFilterState = {
     latest_date: null,
     sentiments: [],
     categories: [],
-    publishers: []
+    publishers: [],
+    expansion: true
 }
 
 interface IArticlesContext {
@@ -48,7 +49,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
 
         // Avoid firing the function on page load: only fires when filters actually have changed
         if (filters != initialFilterState) {
-            console.log(filters.earliest_date)
+            console.log(filters, "😍")
             try {
                 const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
                     method: 'POST',

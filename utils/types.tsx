@@ -5,7 +5,8 @@ export type FiltersType = {
     latest_date: string | null,
     sentiments: string[],
     categories: string[],
-    publishers: string[]
+    publishers: string[],
+    expansion: boolean
 }
 
 // TODO(MC): Wait for Adeel to change to lowercase

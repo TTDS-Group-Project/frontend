@@ -27,10 +27,12 @@ export default function Home() {
                 </div>
 
 
-                <div className="md:grid md:grid-cols-3 mt-10 md:mt-20 gap-20">
-                    <FilterSection />
+                <div className="md:grid md:grid-cols-3 mt-10 md:mt-20 gap-20 md:relative md:h-screen">
+                    <div className="sticky top-0 col-span-1 z-10">
+                        <FilterSection />
+                    </div>
 
-                    <div className="col-span-2 mt-10 md:mt-0">
+                    <div className="col-span-2 mt-10 md:mt-0 md:col-start-2 md:overflow-auto">
                         <div className="mb-5">
                             <p className="text-2xl text-white">Search Results</p>
                             {/* Only show the time taken and number of results if a query has been actually made */}

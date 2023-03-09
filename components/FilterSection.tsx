@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import { ActionButton, FormInput, SelectComponent } from ".";
+import { ActionButton, FormInput, SelectComponent, Checkbox } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
 import { FiltersType, MultiValueType } from "../utils/types";
 
@@ -22,6 +22,13 @@ export const FilterSection : React.FC<{}> = props  => {
             [field]: selectedOption.map((option: MultiValueType) => option.value),
           }));
     };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTempFilters((prevFilters: FiltersType) => ({
+            ...prevFilters,
+            expansion: event.target.checked
+          }));
+      };
 
     const handleSubmit = () => {
         setFilters(tempFilters);
@@ -56,6 +63,8 @@ export const FilterSection : React.FC<{}> = props  => {
                 <SelectComponent title="Sentiment" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("sentiments", selectedOption)}/>
                 <SelectComponent title="Category" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("categories", selectedOption)} />
                 <SelectComponent title="Publisher" handleChange={(selectedOption: MultiValueType[]) => handleSelectChange("publishers", selectedOption)} />
+                
+                <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 
                 <div className="flex justify-center mt-2">
                     <ActionButton onClick={() => handleSubmit()}>
