@@ -22,7 +22,11 @@ const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options = { day: "numeric", month: "long", year: "numeric" } as const;
     return date.toLocaleDateString("en-US", options);
-  };
+};
+
+const convertFirstLetterToUppercase = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
 
 // Content included within the ArtileCardBase which contains all the information about the article
@@ -52,7 +56,7 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                     <div className="grid grid-rows-2 gap-2">
                         <HeaderWithIcon
                             icon={<PersonIcon style={{color: "grey"}}/>}
-                            title={`${article.Author} (${article.Publisher})`}
+                            title={`${article.Author} (${convertFirstLetterToUppercase(article.Publisher)})`}
                         />
 
                         <HeaderWithIcon
@@ -62,7 +66,7 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                     </div>
 
                     <div className="flex flex-wrap mt-2">
-                        <Tag value={article.Category}/>
+                        <Tag value={convertFirstLetterToUppercase(article.Category)}/>
                     </div>
 
                 </div>
