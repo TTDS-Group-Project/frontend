@@ -11,6 +11,7 @@ import { ArticleCard, FilterSection } from "../components";
 // Types
 import {ArticleType} from "../utils/types"
 
+
 export default function Home() {
     const { articles, timeTaken, numResults, numArticlesStored } = useContext(ArticlesContext)
 
@@ -37,12 +38,20 @@ export default function Home() {
                         </div>
                         
                         <div className="grid md:grid-cols-1 gap-10">
-                        {/* <div className="grid md:grid-cols-2 gap-10"> */}
-                        {articles.map((article: ArticleType) => (
-                            <div key={article.Id} className="col-span-1">
-                                <ArticleCard article={article} />
+
+                            {articles.length > 0 && (
+                                articles.map((article: ArticleType) => (
+                                    <div key={article.Id} className="col-span-1">
+                                    <ArticleCard article={article} />
+                                    </div>
+                                ))
+                            )}
+
+                            <div className="h-screen">
+                                {articles.length == 0 && (
+                                    <div className="text-lg text-grey flex justify-center h-screen items-center pb-[30px]">Please perform a search query or update your search parameters in order to view results!</div>
+                                )}
                             </div>
-                        ))}
                         </div>
 
                         

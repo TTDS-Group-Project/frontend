@@ -121,7 +121,13 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 setNumResults(data.num_results)
                 setNumArticlesStored(data.num_articles_stored)
 
-                const retrievedArticles: ArticleType[] = data.results;
+                var retrievedArticles: ArticleType[] = data.results;
+
+                if (retrievedArticles === null) {
+                    retrievedArticles = []
+                }
+
+
                 console.log(retrievedArticles, "🇫🇷")
                 setArticles(retrievedArticles)
 
