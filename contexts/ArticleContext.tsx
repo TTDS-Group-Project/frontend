@@ -25,6 +25,7 @@ interface IArticlesContext {
     setTempFilters: Dispatch<SetStateAction<FiltersType>>;
     timeTaken: number | null,
     numResults: number | null,
+    numArticlesStored: number | null,
 
 }
 
@@ -36,7 +37,8 @@ const defaultState = {
     setFilters: () => {},
     setTempFilters: () => {},
     timeTaken: null,
-    numResults: null
+    numResults: null,
+    numArticlesStored: null
 }
 
 export const ArticlesContext = createContext<IArticlesContext>(defaultState);
@@ -47,6 +49,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [tempFilters, setTempFilters] = useState<FiltersType>(initialFilterState);
     const [timeTaken, setTimeTaken] = useState(null);
     const [numResults, setNumResults] = useState(null);
+    const [numArticlesStored, setNumArticlesStored] = useState(null);
 
     const fetchArticles = async () => {
 
@@ -116,6 +119,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
 
                 setTimeTaken(data.time_taken)
                 setNumResults(data.num_results)
+                setNumArticlesStored(data.num_articles_stored)
 
                 const retrievedArticles: ArticleType[] = data.results;
                 console.log(retrievedArticles, "🇫🇷")
@@ -141,7 +145,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             tempFilters,
             setTempFilters,
             timeTaken,
-            numResults
+            numResults,
+            numArticlesStored
           }}
         >
           {props.children}

@@ -12,7 +12,7 @@ import { ArticleCard, FilterSection } from "../components";
 import {ArticleType} from "../utils/types"
 
 export default function Home() {
-    const { articles, timeTaken, numResults } = useContext(ArticlesContext)
+    const { articles, timeTaken, numResults, numArticlesStored } = useContext(ArticlesContext)
 
     return (
         <>
@@ -32,7 +32,7 @@ export default function Home() {
                             <p className="text-2xl text-white">Search Results</p>
                             {/* Only show the time taken and number of results if a query has been actually made */}
                             {((timeTaken !== null) && (numResults !== null)) && 
-                            <p className="test-sm text-grey">{numResults} results ({timeTaken} seconds)</p>
+                            <p className="test-sm text-grey">{numResults} results retrieved in {timeTaken} seconds, from a total of {numArticlesStored} stored documents.</p>
                             }
                         </div>
                         
