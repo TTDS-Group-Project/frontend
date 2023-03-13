@@ -5,5 +5,4 @@ export * from './FormInput';
 export * from './Tag';
 export * from './Select';
 export * from './FilterSection';
-export * from './NavbarSection';
 export * from './Checkbox';

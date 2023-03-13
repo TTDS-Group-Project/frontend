@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import { ActionButton, FormInput, SelectComponent, Checkbox } from ".";
+import { ActionButton, FormInput, SelectComponent, Checkbox, ArticleCardBase } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
 import { FiltersType, OptionType } from "../utils/types";
 import {RANKING_OPTIONS, PAGE_SIZE_OPTIONS } from "../constants"
@@ -45,46 +45,60 @@ export const FilterSection : React.FC<{}> = props  => {
 
     return (
         <div>
-            <p className="text-2xl text-white mb-5">Filters</p>
+            <p className="text-2xl text-white mb-5">Search parameters</p>
 
-            <div className="bg-section-background rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
-                <FormInput 
-                    handleChange={(e) => handleFormInputChange("author", e.target.value)} 
-                    value={tempFilters.author} 
-                    title="Author" 
-                    placeholder="Stephanie Miller" 
-                />
+            <div className="rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem] cursor-pointer">
+                <div className="rounded-lg bg-section-background">
+                    <div className="bg-section-background  rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
+                        <FormInput 
+                            handleChange={(e) => handleFormInputChange("query", e.target.value)} 
+                            value={tempFilters.query} 
+                            placeholder="Perform Search Query" 
+                            title="Search query"
+                        />
 
-                <FormInput 
-                    handleChange={(e) => handleFormInputChange("earliest_date", e.target.value)} 
-                    value={tempFilters.earliest_date} 
-                    title="Earliest Date" 
-                    placeholder="DD/MM/AAAA"
-                />
+                        <FormInput 
+                            handleChange={(e) => handleFormInputChange("author", e.target.value)} 
+                            value={tempFilters.author} 
+                            title="Author" 
+                            placeholder="Stephanie Miller" 
+                        />
 
-                <FormInput 
-                    handleChange={(e) => handleFormInputChange("latest_date", e.target.value)} 
-                    value={tempFilters.latest_date} 
-                    title="Latest Date" 
-                    placeholder="DD/MM/AAAA"
-                />
+                        <FormInput 
+                            handleChange={(e) => handleFormInputChange("earliest_date", e.target.value)} 
+                            value={tempFilters.earliest_date} 
+                            title="Earliest Date" 
+                            placeholder="DD/MM/AAAA"
+                        />
 
-                <SelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} isMulti={true} />
-                <SelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} isMulti={true} />
-                <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
+                        <FormInput 
+                            handleChange={(e) => handleFormInputChange("latest_date", e.target.value)} 
+                            value={tempFilters.latest_date} 
+                            title="Latest Date" 
+                            placeholder="DD/MM/AAAA"
+                        />
 
-                <SelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
+                        <SelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} isMulti={true} />
+                        <SelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} isMulti={true} />
+                        <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
 
-                <SelectComponent title="Results per page" handleChange={(selectedOption: OptionType) => handleSelectChange("pagesize", selectedOption)} defaultValue={PAGE_SIZE_OPTIONS[19]} isMulti={false} />
+                        <SelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
 
-                <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
+                        <SelectComponent title="Results per page" handleChange={(selectedOption: OptionType) => handleSelectChange("pagesize", selectedOption)} defaultValue={PAGE_SIZE_OPTIONS[19]} isMulti={false} />
 
-                <div className="flex justify-center mt-2">
-                    <ActionButton onClick={() => handleSubmit()}>
-                        Apply filters
-                    </ActionButton>
+                        <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
+
+                        <div className="flex justify-center mt-2">
+                            <ActionButton onClick={() => handleSubmit()}>
+                                Search
+                            </ActionButton>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
         </div>
     )
 }

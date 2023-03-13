@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { ArticlesContext } from "../contexts/ArticleContext";
 
 // Components
-import { ArticleCard, FilterSection, NavbarSection } from "../components";
+import { ArticleCard, FilterSection } from "../components";
 
 // Types
 import {ArticleType} from "../utils/types"
@@ -22,12 +22,7 @@ export default function Home() {
             </Head>
         
             <div className="bg-background min-h-screen rounded-lg p-7 md:pr-20">
-                <div className="md:w-[50%] grid gap-3 md:grid-cols-4 md:gap-5 ">
-                    <NavbarSection />
-                </div>
-
-
-                <div className="md:grid md:grid-cols-3 mt-10 md:mt-20 gap-20 md:relative md:h-screen">
+                <div className="md:grid md:grid-cols-3 mt-10 md:mt-5 gap-20 md:relative md:h-screen">
                     <div className="sticky top-0 col-span-1 z-10">
                         <FilterSection />
                     </div>
