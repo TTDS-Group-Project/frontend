@@ -7,7 +7,9 @@ export type FiltersType = {
     categories: string[],
     publishers: string[],
     expansion: boolean,
-    ranking: string
+    ranking: string,
+    pagesize: string,
+    page: number
 }
 
 // TODO(MC): Wait for Adeel to change to lowercase

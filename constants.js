@@ -23,3 +23,6 @@ export const RANKING_OPTIONS = [
     { value: 'tfidf', label: 'TFIDF' },
     { value: 'bm25', label: 'BM25' }
 ]
+
+const maximumPageSize = 100
+export const PAGE_SIZE_OPTIONS =  [... Array.from({length: maximumPageSize})].map((each, index) => ({ value: (index + 1).toString(), label: (index+1).toString() }));

@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import { ActionButton, FormInput, SelectComponent, Checkbox } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
 import { FiltersType, OptionType } from "../utils/types";
-import {RANKING_OPTIONS } from "../constants"
+import {RANKING_OPTIONS, PAGE_SIZE_OPTIONS } from "../constants"
 
 
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
@@ -74,6 +74,8 @@ export const FilterSection : React.FC<{}> = props  => {
                 <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
 
                 <SelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
+
+                <SelectComponent title="Results per page" handleChange={(selectedOption: OptionType) => handleSelectChange("pagesize", selectedOption)} defaultValue={PAGE_SIZE_OPTIONS[19]} isMulti={false} />
 
                 <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 

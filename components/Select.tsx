@@ -7,7 +7,7 @@ import tailwindConfig from '../tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 // Constants
-import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS, RANKING_OPTIONS } from "../constants"
+import {SENTIMENT_OPTIONS, CATEGORY_OPTIONS, PUBLISHER_OPTIONS, RANKING_OPTIONS, PAGE_SIZE_OPTIONS } from "../constants"
 
 // Types
 import { OptionType } from "../utils/types";
@@ -72,6 +72,8 @@ const getOptions = (title: string) => {
             return PUBLISHER_OPTIONS;
         case "Ranking": 
             return RANKING_OPTIONS;
+        case "Results per page": 
+            return PAGE_SIZE_OPTIONS;
     }
 }
 

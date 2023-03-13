@@ -11,7 +11,9 @@ const initialFilterState = {
     categories: [],
     publishers: [],
     expansion: true,
-    ranking: "tfidf"
+    ranking: "tfidf",
+    pagesize: "20",
+    page: 1
 }
 
 interface IArticlesContext {
@@ -68,7 +70,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                         publishers: filters.publishers,
                         ranking: filters.ranking,
                         expansion: filters.expansion, 
-                        limit: 100
+                        pagesize: filters.pagesize,
+                        page: filters.page
                     })
                 });
             
