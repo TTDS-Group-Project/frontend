@@ -20,8 +20,8 @@ export const PUBLISHER_OPTIONS = [
 ]
 
 export const RANKING_OPTIONS = [
-    { value: 'tfidf', label: 'TFIDF' },
-    { value: 'bm25', label: 'BM25' }
+    { value: 'TFIDF', label: 'TFIDF' },
+    { value: 'BM25', label: 'BM25' }
 ]
 
 const maximumPageSize = 100

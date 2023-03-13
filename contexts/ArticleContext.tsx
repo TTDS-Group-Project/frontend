@@ -10,10 +10,10 @@ const initialFilterState = {
     sentiments: [],
     categories: [],
     publishers: [],
-    expansion: true,
-    ranking: "tfidf",
+    expansion: false,
+    ranking: "TFIDF",
     pagesize: "20",
-    page: 1
+    page: "1"
 }
 
 interface IArticlesContext {
@@ -52,7 +52,54 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
 
         // Avoid firing the function on page load: only fires when filters actually have changed
         if (filters != initialFilterState) {
-            console.log(filters, "😍")
+
+            var tempAuthor = undefined
+
+            if (filters.author !== null) {
+                tempAuthor = filters.author
+            } else {
+                tempAuthor = []
+            }
+
+            const errorBody = JSON.stringify({
+                query: filters.query,
+                authors: tempAuthor,
+                datefrom: filters.earliest_date,
+                dateto: filters.latest_date,
+                sentiments: filters.sentiments,
+                categories: filters.categories,
+                publishers: filters.publishers,
+                ranking: filters.ranking,
+                expansion: filters.expansion, 
+                pagesize: filters.pagesize,
+                page: filters.page
+            })
+
+            console.log(errorBody, "🔵")
+            console.log(filters.page)
+            console.log(filters.pagesize)
+
+            console.log(filters)
+
+            const body = JSON.stringify({
+                query: filters.query,
+                datefrom: filters.earliest_date,
+                dateto: filters.latest_date,
+                categories: filters.categories,
+                sentiments: filters.sentiments,
+                publishers: filters.publishers,
+                authors: tempAuthor,
+                ranking: filters.ranking,
+                expansion: filters.expansion, 
+                
+                // pagesize: 900,
+                pagesize: parseInt(filters.pagesize),
+                
+                // page: 2
+                page: parseInt(filters.page)
+            })
+
+            console.log(body, "😍")
             try {
                 const response = await fetch('https://search-api-ziozucgzlq-ew.a.run.app/api/search', {
                     method: 'POST',
@@ -60,19 +107,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                         'Content-Type': 'application/json',
                     },
 
-                    body: JSON.stringify({
-                        query: filters.query,
-                        author: filters.author,
-                        datefrom: filters.earliest_date,
-                        dateto: filters.latest_date,
-                        sentiments: filters.sentiments,
-                        categories: filters.categories,
-                        publishers: filters.publishers,
-                        ranking: filters.ranking,
-                        expansion: filters.expansion, 
-                        pagesize: filters.pagesize,
-                        page: filters.page
-                    })
+                    body: body
                 });
             
                 const data = await response.json();
