@@ -13,9 +13,6 @@ export const FilterSection : React.FC<{}> = props  => {
 
     const [isBoolean, setIsBoolean] = useState(false)
 
-
-    
-
     const handleFormInputChange = (field: keyof FiltersType, value: string | null) => {
         if (field == "query" && value) {
 

@@ -3,7 +3,6 @@ import { FiltersType, ArticleType } from "../utils/types";
 
 const initialFilterState = {
     query: "",
-    // query: null,
     author: null,
     earliest_date: null,
     latest_date: null,
@@ -24,7 +23,7 @@ interface IArticlesContext {
     setFilters: Dispatch<SetStateAction<FiltersType>>;
     setTempFilters: Dispatch<SetStateAction<FiltersType>>;
     timeTaken: number | null,
-    numResults: number | null,
+    numResults: number,
     numArticlesStored: number | null,
     loadingArticles: boolean
 }
@@ -37,7 +36,7 @@ const defaultState = {
     setFilters: () => {},
     setTempFilters: () => {},
     timeTaken: null,
-    numResults: null,
+    numResults: 0,
     numArticlesStored: null,
     loadingArticles: false
 }
@@ -49,7 +48,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [filters, setFilters] = useState<FiltersType>(initialFilterState);
     const [tempFilters, setTempFilters] = useState<FiltersType>(initialFilterState);
     const [timeTaken, setTimeTaken] = useState(null);
-    const [numResults, setNumResults] = useState(null);
+    const [numResults, setNumResults] = useState(0);
     const [numArticlesStored, setNumArticlesStored] = useState(null);
     const [loadingArticles, setLoadingArticles] = useState(false);
 
@@ -77,11 +76,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 authors: tempAuthor,
                 ranking: filters.ranking,
                 expansion: filters.expansion, 
-                
-                // pagesize: 900,
                 pagesize: parseInt(filters.pagesize),
-                
-                // page: 2
                 page: parseInt(filters.page)
             })
 
@@ -98,8 +93,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             
                 const data = await response.json();
 
-                console.log(data, "🟢")
-
                 setTimeTaken(data.time_taken)
                 setNumResults(data.num_results)
                 setNumArticlesStored(data.num_articles_stored)
@@ -110,8 +103,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                     retrievedArticles = []
                 }
 
-
-                console.log(retrievedArticles, "🇫🇷")
                 setArticles(retrievedArticles)
 
             } catch (error) {

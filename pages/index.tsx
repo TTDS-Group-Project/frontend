@@ -10,11 +10,24 @@ import { ArticlesContext } from "../contexts/ArticleContext";
 import { ArticleCard, FilterSection, Spinner } from "../components";
 
 // Types
-import {ArticleType} from "../utils/types"
+import {ArticleType, FiltersType} from "../utils/types"
 
 
 export default function Home() {
     const { articles, timeTaken, numResults, numArticlesStored, loadingArticles } = useContext(ArticlesContext)
+
+    const { filters, setFilters } = useContext(ArticlesContext)
+
+    const handlePageChange = (selectedPage: number) => {
+        const indexedSelectedPage = selectedPage + 1
+
+        setFilters((prevFilters: FiltersType) => ({
+            ...prevFilters,
+            "page": indexedSelectedPage.toString(),
+          }));
+    }
+
+    const pageCount = Math.ceil(numResults / parseInt(filters.pagesize));
 
     return (
         <>
@@ -33,7 +46,7 @@ export default function Home() {
                         <div className="mb-5">
                             <p className="text-2xl text-white">Search Results</p>
                             {/* Only show the time taken and number of results if a query has been actually made */}
-                            {((timeTaken !== null) && (numResults !== null)) && 
+                            {((timeTaken !== null) && (numResults > 0)) && 
                             <p className="test-sm text-grey">{numResults} results retrieved in {timeTaken} seconds, from a total of {numArticlesStored} stored documents.</p>
                             }
                         </div>
@@ -69,21 +82,22 @@ export default function Home() {
                             </div>
                         }
                     </div>
-                <div className="col-start-2 col-span-1">
-                    <div className="flex justify-center mt-2">
-                        <ReactPaginate
-                            previousLabel={"← Previous"}
-                            nextLabel={"Next →"}
-                            pageCount={100}
-                            onPageChange={() => console.log("hello")}
-                            containerClassName={"py-5 px-4 rounded-md bg-section-background text-white flex justify-between w-[100%]"}
-                            previousLinkClassName={"font-bold"}
-                            nextLinkClassName={"font-bold"}
-                            disabledClassName={""}
-                            activeClassName={"text-gradient-left"}
-                        />
+                    <div className="col-span-3">
+                        <div className="flex justify-center mt-2">
+                            <ReactPaginate
+                                previousLabel={"← Previous"}
+                                nextLabel={"Next →"}
+                                pageCount={pageCount}
+                                pageRangeDisplayed={6}
+                                onPageChange={(selectedPage) => handlePageChange(selectedPage.selected)}
+                                containerClassName={"py-5 px-4 rounded-md bg-section-background text-white flex justify-between w-[100%]"}
+                                previousLinkClassName={"font-bold"}
+                                nextLinkClassName={"font-bold"}
+                                disabledClassName={""}
+                                activeClassName={"text-gradient-left"}
+                            />
+                        </div>
                     </div>
-                </div>
                 </div>
 
             </div>
