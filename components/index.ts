@@ -6,3 +6,4 @@ export * from './Tag';
 export * from './Select';
 export * from './FilterSection';
 export * from './Checkbox';
+export * from './Spinner';

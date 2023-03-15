@@ -6,14 +6,14 @@ import Head from 'next/head'
 import { ArticlesContext } from "../contexts/ArticleContext";
 
 // Components
-import { ArticleCard, FilterSection } from "../components";
+import { ArticleCard, FilterSection, Spinner } from "../components";
 
 // Types
 import {ArticleType} from "../utils/types"
 
 
 export default function Home() {
-    const { articles, timeTaken, numResults, numArticlesStored } = useContext(ArticlesContext)
+    const { articles, timeTaken, numResults, numArticlesStored, loadingArticles } = useContext(ArticlesContext)
 
     return (
         <>
@@ -36,26 +36,36 @@ export default function Home() {
                             <p className="test-sm text-grey">{numResults} results retrieved in {timeTaken} seconds, from a total of {numArticlesStored} stored documents.</p>
                             }
                         </div>
-                        
-                        <div className="grid md:grid-cols-1 gap-10">
 
-                            {articles.length > 0 && (
-                                articles.map((article: ArticleType) => (
-                                    <div key={article.Id} className="col-span-1">
-                                    <ArticleCard article={article} />
+                        {/* If it's loading articles, show the spinner, otherwise show the retrieved articles */}
+                        {
+                            loadingArticles 
+                            ? 
+                            (
+                                <div className="h-screen">
+                                    <div className="flex justify-center h-screen items-center">
+                                        <Spinner />
                                     </div>
-                                ))
-                            )}
 
-                            <div className="h-screen">
-                                {articles.length == 0 && (
-                                    <div className="text-lg text-grey flex justify-center h-screen items-center pb-[30px]">Please perform a search query or update your search parameters in order to view results!</div>
+                                </div>
+                            )
+                            : 
+                            <div className="grid md:grid-cols-1 gap-10">
+                                {articles.length > 0 && (
+                                    articles.map((article: ArticleType) => (
+                                        <div key={article.Id} className="col-span-1">
+                                        <ArticleCard article={article} />
+                                        </div>
+                                    ))
                                 )}
-                            </div>
-                        </div>
 
-                        
-                        
+                                <div className="h-screen">
+                                    {articles.length == 0 && (
+                                        <div className="text-lg text-grey flex justify-center h-screen items-center pb-[30px]">Please perform a search query or update your search parameters in order to view results!</div>
+                                    )}
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

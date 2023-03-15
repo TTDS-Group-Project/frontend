@@ -26,7 +26,7 @@ interface IArticlesContext {
     timeTaken: number | null,
     numResults: number | null,
     numArticlesStored: number | null,
-
+    loadingArticles: boolean
 }
 
 const defaultState = {
@@ -38,7 +38,8 @@ const defaultState = {
     setTempFilters: () => {},
     timeTaken: null,
     numResults: null,
-    numArticlesStored: null
+    numArticlesStored: null,
+    loadingArticles: false
 }
 
 export const ArticlesContext = createContext<IArticlesContext>(defaultState);
@@ -50,8 +51,10 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [timeTaken, setTimeTaken] = useState(null);
     const [numResults, setNumResults] = useState(null);
     const [numArticlesStored, setNumArticlesStored] = useState(null);
+    const [loadingArticles, setLoadingArticles] = useState(false);
 
     const fetchArticles = async () => {
+        setLoadingArticles(true)
 
         // Avoid firing the function on page load: only fires when filters actually have changed
         if (filters != initialFilterState) {
@@ -63,26 +66,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             } else {
                 tempAuthor = []
             }
-
-            const errorBody = JSON.stringify({
-                query: filters.query,
-                authors: tempAuthor,
-                datefrom: filters.earliest_date,
-                dateto: filters.latest_date,
-                sentiments: filters.sentiments,
-                categories: filters.categories,
-                publishers: filters.publishers,
-                ranking: filters.ranking,
-                expansion: filters.expansion, 
-                pagesize: filters.pagesize,
-                page: filters.page
-            })
-
-            console.log(errorBody, "🔵")
-            console.log(filters.page)
-            console.log(filters.pagesize)
-
-            console.log(filters)
 
             const body = JSON.stringify({
                 query: filters.query,
@@ -135,6 +118,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 console.error(error);
             }
         } 
+        
+        setLoadingArticles(false)
     };
 
     useEffect(() => {
@@ -152,7 +137,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             setTempFilters,
             timeTaken,
             numResults,
-            numArticlesStored
+            numArticlesStored,
+            loadingArticles
           }}
         >
           {props.children}
