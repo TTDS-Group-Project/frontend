@@ -1,6 +1,7 @@
 // General
 import React, {useContext} from 'react';
 import Head from 'next/head'
+import ReactPaginate from "react-paginate"
 
 // Contexts
 import { ArticlesContext } from "../contexts/ArticleContext";
@@ -59,7 +60,8 @@ export default function Home() {
                                     ))
                                 )}
 
-                                <div className="h-screen">
+                                <div className="">
+                                {/* <div className="h-screen"> */}
                                     {articles.length == 0 && (
                                         <div className="text-lg text-grey flex justify-center h-screen items-center pb-[30px]">Please perform a search query or update your search parameters in order to view results!</div>
                                     )}
@@ -67,7 +69,23 @@ export default function Home() {
                             </div>
                         }
                     </div>
+                <div className="col-start-2 col-span-1">
+                    <div className="flex justify-center mt-2">
+                        <ReactPaginate
+                            previousLabel={"← Previous"}
+                            nextLabel={"Next →"}
+                            pageCount={100}
+                            onPageChange={() => console.log("hello")}
+                            containerClassName={"py-5 px-4 rounded-md bg-section-background text-white flex justify-between w-[100%]"}
+                            previousLinkClassName={"font-bold"}
+                            nextLinkClassName={"font-bold"}
+                            disabledClassName={""}
+                            activeClassName={"text-gradient-left"}
+                        />
+                    </div>
                 </div>
+                </div>
+
             </div>
     </>
   )
