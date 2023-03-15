@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 
 import { ActionButton, FormInput, SelectComponent, Checkbox, ArticleCardBase } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
 import { FiltersType, OptionType } from "../utils/types";
-import {RANKING_OPTIONS, PAGE_SIZE_OPTIONS } from "../constants"
+import {RANKING_OPTIONS, PAGE_SIZE_OPTIONS, REGEX_BOOLEAN_IDENTIFER } from "../constants"
 
 
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
@@ -11,7 +11,21 @@ export const FilterSection : React.FC<{}> = props  => {
     const { filters, setFilters } = useContext(ArticlesContext)
     const { tempFilters, setTempFilters } = useContext(ArticlesContext)
 
+    const [isBoolean, setIsBoolean] = useState(false)
+
+
+    
+
     const handleFormInputChange = (field: keyof FiltersType, value: string | null) => {
+        if (field == "query" && value) {
+
+            if (REGEX_BOOLEAN_IDENTIFER.test(value)) { 
+                setIsBoolean(true)
+            } else {
+                setIsBoolean(false)
+            }
+        }
+
         setTempFilters((prevFilters: FiltersType) => ({
           ...prevFilters,
           [field]: value,
@@ -82,11 +96,11 @@ export const FilterSection : React.FC<{}> = props  => {
                         <SelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} isMulti={true} />
                         <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
 
-                        <SelectComponent title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
+                        <SelectComponent isDisabled={isBoolean} title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
 
                         <SelectComponent title="Results per page" handleChange={(selectedOption: OptionType) => handleSelectChange("pagesize", selectedOption)} defaultValue={PAGE_SIZE_OPTIONS[19]} isMulti={false} />
 
-                        <Checkbox title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
+                        <Checkbox isDisabled={isBoolean} title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 
                         <div className="flex justify-center mt-2">
                             <ActionButton onClick={() => handleSubmit()}>

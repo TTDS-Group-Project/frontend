@@ -81,6 +81,7 @@ const getOptions = (title: string) => {
 interface SelectProps {
     title: string;
     handleChange: any;
+    isDisabled?: boolean;
     defaultValue?: OptionType;
     isMulti: boolean;
 }
@@ -90,18 +91,20 @@ export const SelectComponent: React.FC<SelectProps> = ({
     title,
     handleChange,
     defaultValue,
+    isDisabled,
     isMulti,
     ...props
 }) => {
 
     return (
-        <div className="text-sm">
+        <div className={`text-sm ${isDisabled && "cursor-not-allowed"}`}>
             <p className="text-grey">
                 {title}
             </p> 
 
             <div className="text-tag-text-color">
                 <Select 
+                    isDisabled={isDisabled}
                     isMulti={isMulti}
                     onChange={handleChange}
                     options={getOptions(title)} 

@@ -1,3 +1,5 @@
+export const REGEX_BOOLEAN_IDENTIFER = /^\[.*\]$/
+
 export const SENTIMENT_OPTIONS = [
     { value: 'pos', label: 'Positive' },
     { value: 'neg', label: 'Negative' },
