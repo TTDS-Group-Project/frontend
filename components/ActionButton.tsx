@@ -15,7 +15,7 @@ export const ActionButton : React.FC<ActionButtonProps> = ({
     children, 
     ...props}) => (
     <button 
-        className={`w-full flex justify-center cursor-pointer px-12 py-3 bg-gradient-to-r from-gradient-left to-gradient-right rounded-xl ${className ?? ''}`}
+        className={`flex justify-center cursor-pointer px-12 py-3 bg-gradient-to-r from-gradient-left to-gradient-right rounded-xl ${className ?? ''}`}
         {...props}
     >
         <p className={`font-bold text-white`}>

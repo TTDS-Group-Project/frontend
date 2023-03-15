@@ -100,7 +100,7 @@ export const FilterSection : React.FC<{}> = props  => {
                         <Checkbox isDisabled={isBoolean} title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
 
                         <div className="flex justify-center mt-2">
-                            <ActionButton onClick={() => handleSubmit()}>
+                            <ActionButton onClick={() => handleSubmit()} className="w-full">
                                 Search
                             </ActionButton>
                         </div>
