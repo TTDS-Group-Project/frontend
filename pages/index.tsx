@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate"
 import { ArticlesContext } from "../contexts/ArticleContext";
 
 // Components
-import { ArticleCard, FilterSection, Spinner } from "../components";
+import { ArticleCard, FilterSection, Spinner, Hints } from "../components";
 
 // Types
 import {ArticleType, FiltersType} from "../utils/types"
@@ -37,7 +37,9 @@ export default function Home() {
             </Head>
         
             <div className="bg-background min-h-screen rounded-lg p-7 md:pr-20">
-                <div className="md:grid md:grid-cols-3 mt-10 md:mt-5 gap-20 md:relative md:h-screen">
+                <Hints />
+                
+                <div className="md:grid md:grid-cols-3 mt-10 md:mt-10 gap-20 md:relative md:h-screen">
                     <div className="sticky top-0 col-span-1 z-10">
                         <FilterSection />
                     </div>
