@@ -84,22 +84,25 @@ export default function Home() {
                             </div>
                         }
                     </div>
-                    <div className="col-span-3">
-                        <div className="flex justify-center mt-2">
-                            <ReactPaginate
-                                previousLabel={"← Previous"}
-                                nextLabel={"Next →"}
-                                pageCount={pageCount}
-                                pageRangeDisplayed={6}
-                                onPageChange={(selectedPage) => handlePageChange(selectedPage.selected)}
-                                containerClassName={"py-5 px-4 rounded-md bg-section-background text-white flex justify-between w-[100%]"}
-                                previousLinkClassName={"font-bold"}
-                                nextLinkClassName={"font-bold"}
-                                disabledClassName={""}
-                                activeClassName={"text-gradient-left"}
-                            />
+
+                    {(numResults > 0) && (
+                        <div className="col-span-3">
+                            <div className="flex justify-center mt-2">
+                                <ReactPaginate
+                                    previousLabel={"← Previous"}
+                                    nextLabel={"Next →"}
+                                    pageCount={pageCount}
+                                    pageRangeDisplayed={6}
+                                    onPageChange={(selectedPage) => handlePageChange(selectedPage.selected)}
+                                    containerClassName={"py-5 px-4 rounded-md bg-section-background text-white flex justify-between w-[100%]"}
+                                    previousLinkClassName={"font-bold"}
+                                    nextLinkClassName={"font-bold"}
+                                    disabledClassName={""}
+                                    activeClassName={"text-gradient-left"}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
 
             </div>

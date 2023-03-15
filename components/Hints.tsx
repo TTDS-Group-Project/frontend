@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {ActionButton} from "."
 
 export const Hints: React.FC<{}> = () => {
-    const [hintsActive, setHintsActive] = useState(true)
+    const [hintsActive, setHintsActive] = useState(false)
 
     const displayActionButton = () => {
         if (hintsActive) {
