@@ -82,7 +82,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
 
             // TODO(MC): delete, this is temporary while waiting for patrick
             const response = {
-                message: "new spelling"
+                message: "temporary new spelling"
             }
 
             const checkedMessage = response.message
