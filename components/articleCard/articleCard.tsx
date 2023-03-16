@@ -1,5 +1,5 @@
 // General
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image';
 
 
@@ -42,20 +42,38 @@ const getSentimentLabel = (sentiment: string) => {
     }
 }
 
+const ImageWithFallback = (props: any) => {
+    const { src, fallbackSrc, ...rest } = props;
+    const [imgSrc, setImgSrc] = useState(src);
+
+    return (
+        <Image
+            {...rest}
+            src={imgSrc}
+            onError={() => {
+                setImgSrc(fallbackSrc);
+            }}
+        />
+    );
+};
 
 // Content included within the ArtileCardBase which contains all the information about the article
 export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
+    const handleImageError = (event: any) => {
+        event.target.src = "https://ab-hwc.nhp.gov.in/download/document/recent.jpg"
+      };
 
     return (
         <ArticleCardBase articleLink={article.Link}>
             <div className="md:flex md:flex-row">
                 <div className="hidden md:block">
-                    <Image
-                    src={article.Cover_image}
+                    <ImageWithFallback
                     alt="My Image"
                     width={225}
                     height={225}
                     className="rounded-md h-auto"
+                        src={article.Cover_image}
+                        fallbackSrc={`https://www.suzukijember.com/gallery/gambar_product/default.jpg`}
                     />
                 </div>
 

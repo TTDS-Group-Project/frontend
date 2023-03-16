@@ -39,6 +39,8 @@ export const Hints: React.FC<{}> = () => {
                 {displayActionButton()}
             </div>
 
+            
+
             {hintsActive && (
                 <div className="bg-tag-bg-color text-tag-text-color rounded-md px-5 py-2">
                     <Label label="Phrase search:" />
