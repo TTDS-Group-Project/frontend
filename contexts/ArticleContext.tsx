@@ -65,27 +65,24 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [spellCheckedQuery, setSpellCheckedQuery] = useState("");
 
     const spellCheck = async (query: string) => {
-        console.log("INIT SPELL CHECK", "🟠")
         const body = JSON.stringify({
             message: query,
         })
-
+        
         try {
-            // TODO(MC): Wait for patrick to fix the backend, the current code is just temporary
-            // const response = await fetch('https://query-suggestion-ziozucgzlq-ew.a.run.app/query-suggestion', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: body
-            // });
+            var checkedMessage = ""
 
-            // TODO(MC): delete, this is temporary while waiting for patrick
-            const response = {
-                message: "temporary new spelling"
-            }
-
-            const checkedMessage = response.message
+            const response = await fetch('https://query-suggestion-ziozucgzlq-ew.a.run.app/query-suggestion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: body
+            })
+            .then(response => response.json())
+            .then(data => {
+                checkedMessage = data.message;
+            })
 
             // Doesn't show the spell check suggestion if it's the same as query (as there are no errors)
             if (checkedMessage !== query) {
