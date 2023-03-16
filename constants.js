@@ -1,4 +1,5 @@
 export const REGEX_BOOLEAN_IDENTIFER = /^\[.*\]$/
+export const REGEX_PHRASE_IDENTIFER = /^\".*\"$/
 
 export const SENTIMENT_OPTIONS = [
     { value: 'pos', label: 'Positive' },

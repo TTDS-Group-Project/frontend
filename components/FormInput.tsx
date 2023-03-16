@@ -10,9 +10,11 @@ interface FormInputProps {
 export const FormInput: React.FC<FormInputProps> = ({
     title,
     placeholder,
+    value,
     handleChange,
     ...props
 }) => {
+
     return (
         <div className="grid">
             <p className="text-sm text-grey">
@@ -22,6 +24,7 @@ export const FormInput: React.FC<FormInputProps> = ({
             <input 
                 className="text-white text-sm px-4 py-3 rounded-xl bg-section-background border-solid border-[1px] border-formInputBorder"
                 placeholder={placeholder}
+                value={value ? value : ""}
                 onChange={handleChange}
                 />
         </div>  

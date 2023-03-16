@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import { ActionButton, FormInput, SelectComponent, Checkbox, ArticleCardBase } from ".";
 import { ArticlesContext } from "../contexts/ArticleContext";
@@ -8,14 +8,13 @@ import {RANKING_OPTIONS, PAGE_SIZE_OPTIONS, REGEX_BOOLEAN_IDENTIFER } from "../c
 
 // Used to display an icon on the left, and a text on the right (for example a clock icon on the left, with the date on the right)
 export const FilterSection : React.FC<{}> = props  => {
-    const { filters, setFilters } = useContext(ArticlesContext)
+    const { setFilters, spellCheckedQuery, setSpellCheckedQuery} = useContext(ArticlesContext)
     const { tempFilters, setTempFilters } = useContext(ArticlesContext)
-
     const [isBoolean, setIsBoolean] = useState(false)
+    const [spellCheckCounter, setSpellCheckCounter] = useState(0)
 
     const handleFormInputChange = (field: keyof FiltersType, value: string | null) => {
         if (field == "query" && value) {
-
             if (REGEX_BOOLEAN_IDENTIFER.test(value)) { 
                 setIsBoolean(true)
             } else {
@@ -54,11 +53,38 @@ export const FilterSection : React.FC<{}> = props  => {
         setFilters(tempFilters);
     }
 
+    const handleSpellCheckedQueryClick = (e: any) => {
+        setSpellCheckCounter(spellCheckCounter + 1);
+        setSpellCheckedQuery(""); //Reset spellCheckedQuery so it doesn't appear once user clicks on the suggestion (as there are obviously no mistakes)
+        
+        setTempFilters((prevFilters: FiltersType) => ({
+            ...prevFilters,
+            "query": spellCheckedQuery,
+        }));
+
+      
+        setFilters(tempFilters);
+    }
+
+    // This is only for the spell check: it ensures that once the user clicks on the suggested query, after updating the tempFilters
+    // In the handleSpellCheckedQueryClick() function, the handleSubmit() function fires. Otherwise it doens't fire because setTempFilters() is asynchronous
+    useEffect(() => {
+        
+        handleSubmit();
+    }, [spellCheckCounter])
+
     return (
         <div>
-            <p className="text-2xl text-white mb-5">Search parameters</p>
+            <p className="text-2xl text-white mb-1">Search parameters</p>
 
-            <div className="rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem] cursor-pointer">
+            {(spellCheckedQuery.length > 0) && (
+                <p className="text-sm text-gradient-left">
+                    Did you mean: <span onClick={(e) => handleSpellCheckedQueryClick(e)} className="font-bold underline cursor-pointer" >{spellCheckedQuery}</span> ?
+                </p>
+
+            )}
+
+            <div className="mt-5 rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem] cursor-pointer">
                 <div className="rounded-lg bg-section-background">
                     <div className="bg-section-background  rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
                         <FormInput 
@@ -107,9 +133,6 @@ export const FilterSection : React.FC<{}> = props  => {
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     )
 }

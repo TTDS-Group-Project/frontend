@@ -1,5 +1,5 @@
 export type FiltersType = {
-    query: string | null,
+    query: string,
     author: string | null,
     earliest_date: string | null,
     latest_date: string | null,

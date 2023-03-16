@@ -1,5 +1,11 @@
+// General
 import React, { createContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
+
+// Types
 import { FiltersType, ArticleType } from "../utils/types";
+
+// Constants
+import {REGEX_BOOLEAN_IDENTIFER, REGEX_PHRASE_IDENTIFER} from "../constants"
 
 const initialFilterState = {
     query: "",
@@ -25,7 +31,9 @@ interface IArticlesContext {
     timeTaken: number | null,
     numResults: number,
     numArticlesStored: number | null,
-    loadingArticles: boolean
+    loadingArticles: boolean,
+    spellCheckedQuery: string,
+    setSpellCheckedQuery: Dispatch<SetStateAction<string>>;
 }
 
 const defaultState = {
@@ -38,8 +46,11 @@ const defaultState = {
     timeTaken: null,
     numResults: 0,
     numArticlesStored: null,
-    loadingArticles: false
+    loadingArticles: false,
+    spellCheckedQuery: "",
+    setSpellCheckedQuery: () => {}
 }
+
 
 export const ArticlesContext = createContext<IArticlesContext>(defaultState);
 
@@ -51,12 +62,56 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [numResults, setNumResults] = useState(0);
     const [numArticlesStored, setNumArticlesStored] = useState(null);
     const [loadingArticles, setLoadingArticles] = useState(false);
+    const [spellCheckedQuery, setSpellCheckedQuery] = useState("");
+
+    const spellCheck = async (query: string) => {
+        console.log("INIT SPELL CHECK", "🟠")
+        const body = JSON.stringify({
+            message: query,
+        })
+
+        try {
+            // TODO(MC): Wait for patrick to fix the backend, the current code is just temporary
+            // const response = await fetch('https://query-suggestion-ziozucgzlq-ew.a.run.app/query-suggestion', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: body
+            // });
+
+            // TODO(MC): delete, this is temporary while waiting for patrick
+            const response = {
+                message: "new spelling"
+            }
+
+            const checkedMessage = response.message
+
+            // Doesn't show the spell check suggestion if it's the same as query (as there are no errors)
+            if (checkedMessage !== query) {
+                setSpellCheckedQuery(checkedMessage)
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const fetchArticles = async () => {
         setLoadingArticles(true)
+        setSpellCheckedQuery("")
 
         // Avoid firing the function on page load: only fires when filters actually have changed
         if (filters != initialFilterState) {
+
+            // TODO(MC): Only do spell check if it's freetext search
+
+            const query = filters.query
+
+            // Only performs spell check if it's freetext search (not phrase nor boolean/proximity)
+            if (!REGEX_BOOLEAN_IDENTIFER.test(query) && (!REGEX_PHRASE_IDENTIFER.test(query))) {
+                spellCheck(filters.query)
+            }
 
             var tempAuthor = undefined
 
@@ -129,7 +184,9 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
             timeTaken,
             numResults,
             numArticlesStored,
-            loadingArticles
+            loadingArticles,
+            spellCheckedQuery,
+            setSpellCheckedQuery
           }}
         >
           {props.children}
