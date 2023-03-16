@@ -42,10 +42,10 @@ export const FilterSection : React.FC<{}> = props  => {
           }));
     };
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, field: keyof FiltersType) => {
         setTempFilters((prevFilters: FiltersType) => ({
             ...prevFilters,
-            expansion: event.target.checked
+            [field]: event.target.checked
           }));
       };
 
@@ -123,7 +123,8 @@ export const FilterSection : React.FC<{}> = props  => {
 
                         <SelectComponent title="Results per page" handleChange={(selectedOption: OptionType) => handleSelectChange("pagesize", selectedOption)} defaultValue={PAGE_SIZE_OPTIONS[19]} isMulti={false} />
 
-                        <Checkbox isDisabled={isBoolean} title="Query Expansion" checked={tempFilters.expansion} handleChange={handleCheckboxChange}/>
+                        <Checkbox isDisabled={isBoolean} title="Query Expansion" checked={tempFilters.expansion} handleChange={(e) => handleCheckboxChange(e, "expansion")}/>
+                        <Checkbox title="Ignore Cache" checked={tempFilters.ignorecache} handleChange={(e) => handleCheckboxChange(e, "ignorecache")}/>
 
                         <div className="flex justify-center mt-2">
                             <ActionButton onClick={() => handleSubmit()} className="w-full">

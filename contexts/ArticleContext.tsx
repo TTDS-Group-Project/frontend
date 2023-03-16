@@ -18,7 +18,8 @@ const initialFilterState = {
     expansion: false,
     ranking: "TFIDF",
     pagesize: "20",
-    page: "1"
+    page: "1",
+    ignorecache: false
 }
 
 interface IArticlesContext {
@@ -129,7 +130,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 ranking: filters.ranking,
                 expansion: filters.expansion, 
                 pagesize: parseInt(filters.pagesize),
-                page: parseInt(filters.page)
+                page: parseInt(filters.page),
+                ignorecache: filters.ignorecache
             })
 
             console.log(body, "😍")

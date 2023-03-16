@@ -3,7 +3,7 @@ import React from 'react'
 interface CheckboxProps {
     title: string;
     checked: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
