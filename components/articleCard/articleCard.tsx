@@ -98,8 +98,8 @@ export const ArticleCard : React.FC<ArticleCardProps> = ({article})  => {
                     </div>
 
                     <div className="flex flex-wrap mt-2">
-                        <Tag value={convertFirstLetterToUppercase(article.Category)}/>
-                        <Tag value={convertFirstLetterToUppercase(getSentimentLabel(article.Sentiment))}/>
+                        {(article.Category && (article.Category !== "N/A")) && <Tag value={convertFirstLetterToUppercase(article.Category)}/>} 
+                        {(article.Sentiment && (article.Sentiment !== "N/A")) && <Tag value={convertFirstLetterToUppercase(getSentimentLabel(article.Sentiment))}/>}
                     </div>
 
                 </div>
