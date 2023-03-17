@@ -112,11 +112,15 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 spellCheck(filters.query)
             }
 
-            var tempAuthor: string[] = []
+            var tempAuthor: string[] | null = []
 
-            if (filters.author !== null) {
+            if (filters.author == "") {
+                tempAuthor = null
+            } else if (filters.author !== null) {
                 tempAuthor = [filters.author]
-            } 
+            }
+
+
             
             const body = JSON.stringify({
                 query: filters.query,
@@ -132,6 +136,8 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 page: parseInt(filters.page),
                 ignorecache: filters.ignorecache
             })
+
+            console.log(body)
 
             console.log(body, "😍")
             try {

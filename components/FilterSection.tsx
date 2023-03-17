@@ -84,7 +84,7 @@ export const FilterSection : React.FC<{}> = props  => {
 
             )}
 
-            <div className="mt-5 rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem] cursor-pointer">
+            <div className="mt-5 rounded-lg bg-gradient-to-r from-gradient-left to-gradient-right p-[0.07rem]">
                 <div className="rounded-lg bg-section-background">
                     <div className="bg-section-background  rounded-xl py-7 px-6 grid grid-cols-1 gap-4 border-[1px] border-formInputBorder">
                         <FormInput 
