@@ -11,7 +11,7 @@
 
 * {
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  -webkit-box-sizing: border-box !important;
   padding: 0;
   margin: 0;
 }
@@ -28,6 +28,7 @@ body {
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 30px;
+    
 }
 
 /* override the padding on screens smaller than md */
