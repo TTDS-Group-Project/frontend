@@ -105,14 +105,14 @@ export const FilterSection : React.FC<{}> = props  => {
                             handleChange={(e) => handleFormInputChange("earliest_date", e.target.value)} 
                             value={tempFilters.earliest_date} 
                             title="Earliest Date" 
-                            placeholder="DD/MM/AAAA"
+                            placeholder="YYYY/MM/DD"
                         />
 
                         <FormInput 
                             handleChange={(e) => handleFormInputChange("latest_date", e.target.value)} 
                             value={tempFilters.latest_date} 
                             title="Latest Date" 
-                            placeholder="DD/MM/AAAA"
+                            placeholder="YYYY/MM/DD"
                         />
 
                         <SelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} isMulti={true} />
