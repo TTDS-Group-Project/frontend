@@ -117,7 +117,14 @@ export const FilterSection : React.FC<{}> = props  => {
 
                         <SelectComponent title="Sentiment" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("sentiments", selectedOption)} isMulti={true} />
                         <SelectComponent title="Category" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("categories", selectedOption)} isMulti={true} />
-                        <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} />
+
+                        <FormInput 
+                            handleChange={(e) => handleFormInputChange("publishers", e.target.value)} 
+                            value={tempFilters.publishers} 
+                            title="Publisher" 
+                            placeholder="BBC"
+                        />
+                        {/* <SelectComponent title="Publisher" handleChange={(selectedOption: OptionType[]) => handleMultiSelectChange("publishers", selectedOption)} isMulti={true} /> */}
 
                         <SelectComponent isDisabled={isBoolean} title="Ranking" handleChange={(selectedOption: OptionType) => handleSelectChange("ranking", selectedOption)} defaultValue={RANKING_OPTIONS[0]} isMulti={false} />
 

@@ -14,7 +14,7 @@ const initialFilterState = {
     latest_date: null,
     sentiments: [],
     categories: [],
-    publishers: [],
+    publishers: null,
     expansion: false,
     ranking: "TFIDF",
     pagesize: "20",
@@ -66,7 +66,6 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [spellCheckedQuery, setSpellCheckedQuery] = useState("");
 
     const spellCheck = async (query: string) => {
-        console.log("INIT SPELLCHECK")
         const body = JSON.stringify({
             message: query,
         })
@@ -112,12 +111,20 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 spellCheck(filters.query)
             }
 
+            // Take care of author to match API format
             var tempAuthor: string[] | null = []
-
             if (filters.author == "") {
                 tempAuthor = null
             } else if (filters.author !== null) {
                 tempAuthor = [filters.author]
+            }
+
+            // Take care of publisher to match API format
+            var tempPublishers: string[] | null = []
+            if (filters.publishers == "") {
+                tempPublishers = []
+            } else if (filters.publishers !== null) {
+                tempPublishers = [filters.publishers.toLowerCase()]
             }
 
 
@@ -128,7 +135,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 dateto: filters.latest_date,
                 categories: filters.categories,
                 sentiments: filters.sentiments,
-                publishers: filters.publishers,
+                publishers: tempPublishers,
                 authors: tempAuthor,
                 ranking: filters.ranking,
                 expansion: filters.expansion, 

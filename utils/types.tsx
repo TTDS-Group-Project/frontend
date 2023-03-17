@@ -5,7 +5,7 @@ export type FiltersType = {
     latest_date: string | null,
     sentiments: string[],
     categories: string[],
-    publishers: string[],
+    publishers: string | null,
     expansion: boolean,
     ranking: string,
     pagesize: string,
