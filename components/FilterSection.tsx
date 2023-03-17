@@ -129,7 +129,6 @@ export const FilterSection : React.FC<{}> = props  => {
                         </div>
 
 
-
                         <div className="flex justify-center mt-2">
                             <ActionButton onClick={() => handleSubmit()} className="w-full">
                                 Search

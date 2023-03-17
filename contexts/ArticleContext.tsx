@@ -66,6 +66,7 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
     const [spellCheckedQuery, setSpellCheckedQuery] = useState("");
 
     const spellCheck = async (query: string) => {
+        console.log("INIT SPELLCHECK")
         const body = JSON.stringify({
             message: query,
         })
@@ -111,14 +112,12 @@ export const ArticlesProvider: React.FC<{children: React.ReactNode}> = props => 
                 spellCheck(filters.query)
             }
 
-            var tempAuthor = undefined
+            var tempAuthor: string[] = []
 
             if (filters.author !== null) {
-                tempAuthor = filters.author
-            } else {
-                tempAuthor = []
-            }
-
+                tempAuthor = [filters.author]
+            } 
+            
             const body = JSON.stringify({
                 query: filters.query,
                 datefrom: filters.earliest_date,
