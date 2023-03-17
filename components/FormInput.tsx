@@ -16,7 +16,7 @@ export const FormInput: React.FC<FormInputProps> = ({
 }) => {
 
     return (
-        <div className="grid">
+        <div className="flex flex-col">
             <p className="text-sm text-grey">
                 {title}
             </p>    
